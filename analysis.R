@@ -1,25 +1,16 @@
-library(tidyhydat)
-library(dplyr)
-library(lubridate)
-library(purrr)
+source("R/load.R")
 
-## Calculate annual half flow
-annual_half_flow <- hy_daily_flows(c("08MF005", "02MB003")) %>% 
-  mutate(year = year(Date)) %>% 
-  group_by(year, STATION_NUMBER) %>% 
-  filter(n() >= 365) %>% ## filter for any year without full number of days
-  summarise(half_ann_flow = sum(Value)/2) ##Creare half the annual flow
+## This is the part to play with. Subset the stations in any way you desire. 
+station_number_obj <- hy_stations() %>% 
+  filter(DRAINAGE_AREA_GROSS >= 100) %>% 
+  pull_station_number()
 
-## Calculate cumulative flow
-cumulative_flow <- hy_daily_flows(c("08MF005", "02MB003")) %>% 
-  mutate(year = year(Date)) %>% 
-  group_by(year, STATION_NUMBER) %>% 
-  mutate(cumulative_value = cumsum(Value))
-
+annual_half_flow_obj <- annual_half_flow(station_number_obj)
+cumulative_flow_obj <- cumulative_flow(station_number_obj)
 
 ## Join annual half flow to cumulative flow and filter for rows when they equal
-joined_table <- cumulative_flow %>% 
-  left_join(annual_half_flow, by = c("STATION_NUMBER", "year")) 
+joined_table <- cumulative_flow_obj %>% 
+  left_join(annual_half_flow_obj, by = c("STATION_NUMBER", "year")) 
 
 ## Find first instance where the cumulative exceeds the half annual flow
 ## Gotta be a better way to do this.

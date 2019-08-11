@@ -11,7 +11,12 @@ Authors@R:
 Description: Analyze annual half flow of all stations in
     HYDAT
 License: GPL-3
-Encoding: UTF-8
-LazyData: true
 URL: https://github.com/boshek/annual.half.flow
 BugReports: https://github.com/boshek/annual.half.flow/issues
+Imports:
+    dplyr,
+    lubridate,
+    purrr,
+    tidyhydat
+Encoding: UTF-8
+LazyData: true
