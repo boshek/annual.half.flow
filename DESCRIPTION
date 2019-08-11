@@ -1,0 +1,15 @@
+Type: Compendium
+Package: annual.half.flow
+Title: Canada-wide Analysis of Annual Half Flow
+Version: 0.0.1
+Authors@R: 
+    person(given = "Sam",
+           family = "Albers",
+           role = c("aut", "cre"),
+           email = "sam.albers@gmail.com",
+           comment = c(ORCID = "0000-0002-9270-7884"))
+Description: Analyze annual half flow of all stations in
+    HYDAT
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
