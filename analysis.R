@@ -1,8 +1,11 @@
-source("R/load.R")
+devtools::load_all()
+download_hydat()
+
+
 
 ## This is the part to play with. Subset the stations in any way you desire. 
 station_number_obj <- hy_stations() %>% 
-  filter(DRAINAGE_AREA_GROSS >= 100) %>% 
+  filter(DRAINAGE_AREA_GROSS <= 1) %>% 
   pull_station_number()
 
 annual_half_flow_obj <- annual_half_flow(station_number_obj)
